@@ -18,7 +18,7 @@
 		<jdk.source.version.local>1.8</jdk.source.version.local>
 		<jdk.compiler.version.local>1.8</jdk.compiler.version.local>
 		<jdk.source.version.openshift>1.6</jdk.source.version.openshift>
-		<jdk.compiler.version.openshift>1.6</jdk.compiler.version.openshift>
+		<!--<jdk.compiler.version.openshift>1.6</jdk.compiler.version.openshift>-->
 		<maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
 		<postgresql.connector.version>9.4-1200-jdbc41</postgresql.connector.version>
 		<!-- - - - - - Logger - - - - - -->
@@ -299,7 +299,7 @@
 			</build>
 		</profile>
 
-		<profile>
+		<!--<profile>
 			<id>openshift</id>
 			<build>
 				<plugins>
@@ -322,7 +322,7 @@
 						<configuration>
 							<argLine>-Xms512m -Xmx1024m</argLine>
 							<skipTests>false</skipTests>
-							<!-- <argLine>${surefireArgLine}</argLine> -->
+							<!-- <argLine>${surefireArgLine}</argLine> 
 							<systemPropertyVariables>
 								<surefire.reports.directory>
 									${testng.reports.directory}
@@ -333,9 +333,9 @@
 								</surefire.reports.profile>
 							</systemPropertyVariables>
 							<suiteXmlFiles>
-								<!-- <suiteXmlFile>testng.xml</suiteXmlFile> -->
+								<!-- <suiteXmlFile>testng.xml</suiteXmlFile> 
 								<file>testng.xml</file>
-								<!-- <file>testng1.xml</file> -->
+								<!-- <file>testng1.xml</file> 
 							</suiteXmlFiles>
 							<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 						</configuration>
@@ -343,7 +343,7 @@
 
 				</plugins>
 			</build>
-		</profile>
+		</profile>-->
 
 	</profiles>
 
