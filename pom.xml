@@ -184,12 +184,12 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
-		<!--<dependency>
+		<dependency>
 	      <groupId>com.newrelic.agent.java</groupId>
 	      <artifactId>newrelic-agent</artifactId>
 	      <version>${newrelic.agent.version}</version>
 	      <scope>provided</scope>
-	    </dependency>-->
+	    </dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -197,11 +197,11 @@
 		        <groupId>com.heroku.sdk</groupId>
 		        <artifactId>heroku-maven-plugin</artifactId>
 		        <version>1.1.1</version>
-		       <!-- <configuration>
+		        <configuration>
 		          <includes>
 		            <include>target/dependency/newrelic-agent.jar</include>
 		          </includes>
-		        </configuration>-->
+		        </configuration>
 		     </plugin>
 		     <plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
