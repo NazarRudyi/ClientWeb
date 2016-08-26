@@ -18,7 +18,7 @@
 		<jdk.source.version.local>1.8</jdk.source.version.local>
 		<jdk.compiler.version.local>1.8</jdk.compiler.version.local>
 		<jdk.source.version.openshift>1.6</jdk.source.version.openshift>
-		<!--<jdk.compiler.version.openshift>1.6</jdk.compiler.version.openshift>-->
+		<!--  <jdk.compiler.version.openshift>1.6</jdk.compiler.version.openshift>-->
 		<maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
 		<postgresql.connector.version>9.4-1200-jdbc41</postgresql.connector.version>
 		<!-- - - - - - Logger - - - - - -->
@@ -38,6 +38,11 @@
 		<!-- - - - Spring Framework - - - -->
 		<org.springframework.version>4.3.1.RELEASE</org.springframework.version>
 		<org.springframework.security.version>4.1.1.RELEASE</org.springframework.security.version>
+		<!--  - - - - - JPA - - - - - -->
+		<postgresql.connector.version>9.4-1200-jdbc41</postgresql.connector.version>
+	    <hibernate.version>5.0.0.Final</hibernate.version>
+	    <!--  - - - - - Newrelic.agent - - - - - -->
+	    <newrelic.agent.version>3.18.0</newrelic.agent.version>
 		<!-- - - - - - Variables - - - - - -->
 		<my.text>Hello World!</my.text>
 	</properties>
@@ -147,6 +152,37 @@
 			<groupId>net.aksingh</groupId>
 			<artifactId>owm-japis</artifactId>
 			<version>2.5.0.3</version>
+		</dependency>
+		<!--  - - - - - JPA - - - - - -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.10.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>4.3.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.connector.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+	 	<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
 		</dependency>
 		<dependency>
 	      <groupId>com.newrelic.agent.java</groupId>
@@ -294,12 +330,72 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>8.1.4.v20120524</version>
+					<configuration>
+					    <webAppConfig>
+						<contextPath>/${project.name}</contextPath>
+					    </webAppConfig>
+					</configuration>
+				    </plugin>
+					<plugin>
+				      <groupId>org.apache.maven.plugins</groupId>
+				      <artifactId>maven-dependency-plugin</artifactId>
+				      <version>2.3</version>
+				      <executions>
+					<execution>
+					  <phase>package</phase>
+					  <goals><goal>copy</goal></goals>
+					  <configuration>
+					    <artifactItems>
+					      <artifactItem>
+						<groupId>org.eclipse.jetty</groupId>
+						<artifactId>jetty-runner</artifactId>
+						<version>9.2.7.v20150116</version>
+						<destFileName>jetty-runner.jar</destFileName>
+					      </artifactItem>
+					    </artifactItems>
+					  </configuration>
+					</execution>
+				      </executions>
+				    </plugin>
 
 				</plugins>
 			</build>
 		</profile>
+		
+		<!-- <profile>
+			<id>heroku</id>
+			<build>
+				<plugins>
+					<plugin>
+			            <groupId>org.apache.maven.plugins</groupId>
+			            <artifactId>maven-dependency-plugin</artifactId>
+			            <version>2.3</version>
+			            <executions>
+			                <execution>
+			                    <phase>package</phase>
+			                    <goals><goal>copy</goal></goals>
+			                    <configuration>
+			                        <artifactItems>
+			                            <artifactItem>
+			                                <groupId>com.github.jsimone</groupId>
+			                                <artifactId>webapp-runner</artifactId>
+			                                <version>8.0.30.2</version>
+			                                <destFileName>webapp-runner.jar</destFileName>
+			                            </artifactItem>
+			                        </artifactItems>
+			                    </configuration>
+			                </execution>
+			            </executions>
+			        </plugin>
+				</plugins>
+			</build>
+		</profile> -->
 
-		<!--<profile>
+		<!-- <profile>
 			<id>openshift</id>
 			<build>
 				<plugins>
@@ -322,7 +418,7 @@
 						<configuration>
 							<argLine>-Xms512m -Xmx1024m</argLine>
 							<skipTests>false</skipTests>
-							<!-- <argLine>${surefireArgLine}</argLine> 
+							<argLine>${surefireArgLine}</argLine>
 							<systemPropertyVariables>
 								<surefire.reports.directory>
 									${testng.reports.directory}
@@ -333,9 +429,9 @@
 								</surefire.reports.profile>
 							</systemPropertyVariables>
 							<suiteXmlFiles>
-								<!-- <suiteXmlFile>testng.xml</suiteXmlFile> 
+								<suiteXmlFile>testng.xml</suiteXmlFile>
 								<file>testng.xml</file>
-								<!-- <file>testng1.xml</file> 
+								<file>testng1.xml</file>
 							</suiteXmlFiles>
 							<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 						</configuration>
@@ -343,7 +439,7 @@
 
 				</plugins>
 			</build>
-		</profile>-->
+		</profile> -->
 
 	</profiles>
 
